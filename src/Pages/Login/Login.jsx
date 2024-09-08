@@ -8,7 +8,7 @@ import auth from "../../Firebase/firebase.config";
 import Meta from "../Shared/Meta";
 import { AuthContext } from "../../Providers/AuthProviders";
 import { Helmet } from "react-helmet-async";
-
+import logo from "../../../public/assets/logo.png";
 const Login = () => {
   const { signIn } = useContext(AuthContext);
   const [error, setError] = useState("");
@@ -64,53 +64,53 @@ const Login = () => {
         <title>Foodle | Login</title>
       </Helmet>
       <Meta title={"login"} />
-      <div className="p-4 bg-sky-200">
-        <div className="hero min-h-screen bg-white shadow-2xl rounded-2xl max-w-lg mx-auto">
+      <div className="p-4 my-20">
+        <div className="hero min-h-screen  shadow shadow-orange-400 rounded-2xl max-w-lg mx-auto">
           <div className="hero-content flex-col ">
             <div className="text-center lg:text-left">
               <h1 className="text-3xl font-bold text-gray-600">
-                <span className="text-red-800">Foodle </span>Login
+                <span className="text-yellow-700">Foodle </span>Login
               </h1>
               <img
-                className="h-1/2 w-1/2 mx-auto mt-2"
-                src="https://i.ibb.co/sFCdQRR/login.png"
-                alt=""
+                className="h-[80px] rounded-full mx-auto mt-3"
+                src={logo}
+                alt="logo"
               />
             </div>
             <div className="card flex-shrink-0 w-full">
               <form onSubmit={handleLogIn} className="card-body">
                 <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Email</span>
+                  <label className="label ">
+                    <span className="label-text text-xl">Email</span>
                   </label>
                   <input
                     name="email"
                     type="email"
-                    placeholder="email"
-                    className="input input-bordered"
+                    placeholder="John@gmail.com"
+                    className="input input-bordered text-slate-50 w-80"
                     required
                   />
                 </div>
                 <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Password</span>
+                  <label className="label ">
+                    <span className="label-text text-xl">Password</span>
                   </label>
                   <input
                     name="password"
                     type="password"
-                    placeholder="password"
-                    className="input input-bordered"
+                    placeholder="75G^if@001"
+                    className="input input-bordered text-slate-50"
                     required
                   />
                 </div>
                 <div className="form-control mt-6">
-                  <button className="btn text-white border-none bg-[#FF3811]">
+                  <button className="btn btn-outline btn-warning w-full text-xl">
                     Login
                   </button>
                 </div>
                 {error && <p className="text-red-600 mt-4">{error}</p>}
               </form>
-              <div>
+              <div className="m-auto">
                 <button onClick={handleGoogle} className="btn capitalize">
                   <FcGoogle className="text-2xl"></FcGoogle> Continue with
                   Google

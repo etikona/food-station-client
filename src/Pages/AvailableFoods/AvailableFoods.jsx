@@ -8,7 +8,7 @@ const AvailableFoods = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortedData, setSortedData] = useState([...data]);
   const [sortBy, setSortBy] = useState(null);
-  const [columns, setColumns] = useState(3);
+  const [columns, setColumns] = useState(3); // Start with 3 columns
   const [myRequestedFoods, setMyRequestedFoods] = useState([]);
 
   // Search Functionality
@@ -41,7 +41,7 @@ const AvailableFoods = () => {
 
   // Toggle the Layout
   const toggleLayout = () => {
-    setColumns(columns === 3 ? 2 : 3);
+    setColumns(columns === 3 ? 2 : 3); // Toggles between 2 and 3 columns
   };
 
   // Send Request
@@ -63,9 +63,9 @@ const AvailableFoods = () => {
   return (
     <div className="my-28 mx-10">
       <Helmet>
-        <title>Foodle |Available Food</title>
+        <title>Foodle | Available Food</title>
       </Helmet>
-      <h2 className="text-4xl text-center text-yellow-500 mt-15 mb-10  font-thin font-lower">
+      <h2 className="text-4xl text-center text-yellow-500 mt-15 mb-10 font-thin font-lower">
         Available Foods
       </h2>
       <div className="flex justify-center my-5">
@@ -132,7 +132,11 @@ const AvailableFoods = () => {
         </div>
       </div>
 
-      <div className={`grid sm:grid-cols-${columns} grid-cols-3 gap-4`}>
+      <div
+        className={`grid ${
+          columns === 3 ? "sm:grid-cols-3" : "sm:grid-cols-2"
+        } grid-cols-2 gap-4`}
+      >
         {filteredData.map((item) => (
           <div
             className="border border-yellow-500 rounded shadow"

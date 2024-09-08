@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Providers/AuthProviders";
 import { Helmet } from "react-helmet-async";
+import toast from "react-hot-toast";
 // import axios from "axios";
 
 const AddFood = () => {
@@ -36,9 +37,12 @@ const AddFood = () => {
         },
         body: JSON.stringify(formattedData),
       });
+      toast.success("Food Added Successfully");
+
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData); // Log the response from the backend
+        console.log(responseData);
+        // Log the response from the backend
         reset(); // Reset the form
       } else {
         console.error("Failed to add food");
@@ -128,7 +132,7 @@ const AddFood = () => {
 
         <div>
           <label className="label">
-            <span className="label-text text-lg text-white">Donator Name</span>
+            <span className="label-text text-lg text-white">Donar Name</span>
           </label>
           <input
             defaultValue={user?.displayName}
@@ -138,7 +142,7 @@ const AddFood = () => {
         </div>
         <div>
           <label className="label">
-            <span className="label-text text-lg text-white">Donator Email</span>
+            <span className="label-text text-lg text-white">Donar Email</span>
           </label>
           <input
             defaultValue={user?.email}
@@ -161,8 +165,8 @@ const AddFood = () => {
         {errors.exampleRequired && <span>This field is required</span>}
         <div className="text-center">
           <input
-            className=" btn mt-8 w-20 btn-outline btn-warning"
-            value="Add"
+            className=" btn mt-8 w-1/4 text-lg btn-outline btn-warning"
+            value="Add Food"
             type="submit"
           />
         </div>

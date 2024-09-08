@@ -1,20 +1,21 @@
-import { useContext, useEffect, useState } from "react";
+// import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
-// import { useLoaderData } from "react-router-dom";
-import { AuthContext } from "../../Providers/AuthProviders";
+import { useLoaderData } from "react-router-dom";
+// import { AuthContext } from "../../Providers/AuthProviders";
 import FoodRequestRow from "./FoodRequestRow";
 
 const MyFoodRequest = () => {
-  // const data = useLoaderData();
-  // console.log(data);
-  const { user } = useContext(AuthContext);
-  const [request, setRequest] = useState([]);
+  const data = useLoaderData();
+  console.log(data);
+  console.log(data);
+  // const { user } = useContext(AuthContext);
+  // const [request, setRequest] = useState([]);
 
-  useEffect(() => {
-    fetch(`http://localhost:5000/food?email=${user.email}`)
-      .then((res) => res.json())
-      .then((data) => setRequest(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch(`http://localhost:5000/request/${user.email}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setRequest(data));
+  // }, []);
 
   return (
     <div>
@@ -27,7 +28,7 @@ const MyFoodRequest = () => {
           <table className="table table-xs">
             <thead>
               <tr>
-                <th>Food Name</th>
+                <th>Food Name </th>
                 <th>Email</th>
                 <th>Name</th>
                 <th>Status</th>
@@ -38,7 +39,7 @@ const MyFoodRequest = () => {
               </tr>
             </thead>
             <tbody>
-              {request.map((food) => (
+              {data.map((food) => (
                 <FoodRequestRow key={food._id} food={food}></FoodRequestRow>
               ))}
             </tbody>

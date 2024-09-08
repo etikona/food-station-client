@@ -82,9 +82,10 @@ const MyFood = () => {
             {/* head */}
             <thead>
               <tr>
-                <th></th>
-                <th>Name</th>
-                <th>EDIT</th>
+                <th>FOOD</th>
+                <th>NAME</th>
+                <th>EMAIL</th>
+                <th>UPDATE</th>
                 <th>DELETE</th>
               </tr>
             </thead>

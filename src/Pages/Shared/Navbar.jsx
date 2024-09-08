@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProviders";
 import "./Navbar.css";
-import logo from "../../assets/logo.png";
+import logo from "../../../public/assets/logo.png";
 import { useContext } from "react";
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -14,38 +14,43 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink className="text-yellow-400 font-bold" to="/">
+        <NavLink className="navText text-xl font-bold" to="/">
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-yellow-400 font-bold" to="/addFood">
+        <NavLink className="navText text-xl font-bold" to="/addFood">
           Add Food
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-yellow-400 font-bold" to="/availableFood">
+        <NavLink className="navText text-xl font-bold" to="/availableFood">
           Available Food
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-yellow-400 font-bold" to="/myFood">
-          My Food
+        <NavLink className="navText text-xl font-bold" to="/myFood">
+          Manage Food
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-yellow-400 font-bold" to="/foodRequest">
+        <NavLink className="navText text-xl font-bold" to="/foodRequest">
           Food Request
         </NavLink>
       </li>
       {user?.email ? (
         <li>
           {" "}
-          <button onClick={handleLogout}>Log out</button>{" "}
+          <button
+            onClick={handleLogout}
+            className="navText text-xl font-bold border  border-slate-950 hover:bg-slate-900 hover:text-slate-50"
+          >
+            Log out
+          </button>{" "}
         </li>
       ) : (
         <li>
-          <NavLink className="text-yellow-400 font-bold" to="/login">
+          <NavLink className="navText text-xl font-bold" to="/login">
             Login
           </NavLink>
         </li>

@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // import { AuthContext } from "../../Providers/AuthProvider";
-import Swal from "sweetalert2";
+// import Swal from "sweetalert2";
 import Meta from "../Shared/Meta";
 import { AuthContext } from "../../Providers/AuthProviders";
 import { Helmet } from "react-helmet-async";
+import logo from "../../../public/assets/logo.png";
 
 const Registration = () => {
   const { createUser } = useContext(AuthContext);
@@ -20,14 +21,14 @@ const Registration = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(name, photo, email, password);
+    // console.log(name, photo, email, password);
 
     const capitalLetter = /[A-Z]/;
     const specialCharacter = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/;
     setError("");
     setSuccess("");
     if (password.length < 6) {
-      setError("PassWord should be 6 charecter or more!!");
+      setError("PassWord should be 6 character or more!!");
       return;
     }
     if (!capitalLetter.test(password)) {
@@ -35,15 +36,30 @@ const Registration = () => {
       return;
     }
     if (!specialCharacter.test(password)) {
-      setError("Your PassWord should have at least one special charecter");
+      setError("Your PassWord should have at least one special character");
       return;
     }
 
+    // ! Create User
+    // createUser(email, password).then((res) => {
+    //   console.log(res);
+    //   const user = res.user;
+    //   fetch("http://localhost:5000/users", {
+    //         method: "POST",
+    //          headers: {
+    //          "content-type": "application/json",
+    //           },
+    //          body: JSON.stringify(user),
+    //        })
+    //        .then((res) => res.json())
+    //         .then((data) => {
+    //           console.log(data, "user created successfully");
+    //            setSuccess("User created successfully!");
+    // })
     createUser(email, password)
       .then((result) => {
-        console.log(result.user);
         const user = { email, password, name, photo };
-        console.log(user);
+
         fetch("http://localhost:5000/users", {
           method: "POST",
           headers: {
@@ -53,15 +69,15 @@ const Registration = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
+            console.log(data, "user created successfully");
             setSuccess("User created successfully!");
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: "Registration Successful",
-              showConfirmButton: false,
-              timer: 3000,
-            });
+            // Swal.fire({
+            //   position: "center",
+            //   icon: "success",
+            //   title: "Registration Successful",
+            //   showConfirmButton: false,
+            //   timer: 3000,
+            // });
             navigate("/");
           });
       })
@@ -77,73 +93,73 @@ const Registration = () => {
         <title>Foodle |Registration</title>
       </Helmet>
       <Meta title={"signup"}></Meta>
-      <div>
-        <div className="p-4 bg-sky-200">
-          <div className="hero min-h-screen bg-white shadow-2xl rounded-2xl max-w-lg mx-auto">
+      <div className="my-20">
+        <div className="p-4 ">
+          <div className="hero min-h-screen   shadow shadow-orange-400 rounded-2xl max-w-lg mx-auto">
             <div className="hero-content flex-col ">
               <div className="text-center lg:text-left">
                 <h1 className="text-3xl font-bold text-gray-600">
-                  <span className="text-red-800">FOODLE </span>Sign Up
+                  <span className="text-yellow-700">FOODLE </span>Sign Up
                 </h1>
                 <img
-                  className="h-1/2 w-1/2 mx-auto mt-2"
-                  src="https://i.ibb.co/sFCdQRR/login.png"
-                  alt=""
+                  className="h-[80px] rounded-full mx-auto mt-3"
+                  src={logo}
+                  alt="logo"
                 />
               </div>
               <div className="card flex-shrink-0 w-full">
                 <form onSubmit={SignUp} className="card-body">
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text">Name</span>
+                      <span className="label-text text-xl">Name</span>
                     </label>
                     <input
                       name="name"
                       type="text"
-                      placeholder="Your name"
-                      className="input input-bordered"
+                      placeholder="John Dean"
+                      className="input input-bordered text-slate-50 w-80"
                       required
                     />
                   </div>
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text">Photo URL</span>
+                      <span className="label-text text-xl">Photo URL</span>
                     </label>
                     <input
                       name="photo"
                       type="text"
                       placeholder="Photo URL"
-                      className="input input-bordered"
+                      className="input input-bordered text-slate-50 w-80"
                       required
                     />
                   </div>
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text">Email</span>
+                      <span className="label-text text-xl">Email</span>
                     </label>
                     <input
                       name="email"
                       type="email"
-                      placeholder="email"
-                      className="input input-bordered"
+                      placeholder="John@gmail.com"
+                      className="input input-bordered text-slate-50 w-80"
                       required
                     />
                   </div>
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text">Password</span>
+                      <span className="label-text text-xl">Password</span>
                     </label>
                     <input
                       name="password"
                       type="password"
-                      placeholder="password"
-                      className="input input-bordered"
+                      placeholder="75G^if@001"
+                      className="input input-bordered text-slate-50 w-80"
                       required
                     />
                   </div>
-                  <div className="form-control mt-6">
-                    <button className="btn text-white border-none bg-[#FF3811]">
-                      Login
+                  <div className="form-control mt-6 w-full">
+                    <button className="btn btn-outline btn-warning w-full text-xl">
+                      Register
                     </button>
                     {error && <p className="text-red-600 pt-4">{error}</p>}
                     {success && <p>{success}</p>}

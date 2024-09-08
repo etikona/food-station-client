@@ -1,56 +1,94 @@
-import { useState, useContext, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProviders";
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const FoodDetails = () => {
   const { user } = useContext(AuthContext);
-  const location = useLocation();
-  const { state: { data, sendRequest } = {} } = location || {}; // Null check for location
   const { id } = useParams();
-  const [additionalNotes, setAdditionalNotes] = useState("");
-  const [food, setFood] = useState([]);
+  const [food, setFood] = useState({});
+  const [formData, setFormData] = useState({
+    food_name: "",
+    food_image: "",
+    food_quantity: "",
+    pickup_location: "",
+    expired_datetime: "",
+    additional_notes: "",
+    donator_name: user?.displayName || "",
+    donator_email: user?.email || "",
+    donator_image: user?.photoURL || "",
+  });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch food details if needed
-    if (!data) {
-      fetch(`http://localhost:5000/food/${id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setFood(data);
-          // console.log(data);
-        })
-        .catch((error) => {
-          console.error("Error fetching food details:", error);
+    // Fetch food details and set state
+    fetch(`http://localhost:5000/food/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFood(data);
+        setFormData({
+          ...formData,
+          food_name: data.food_name,
+          food_image: data.food_image,
+          food_quantity: data.food_quantity,
+          pickup_location: data.pickup_location,
+          expired_datetime: data.expired_datetime,
+          additional_notes: data.additional_notes || "",
         });
-    }
-  }, [food, id]);
+      });
+  }, [id]);
 
-  // Open Modal
-  const openModal = () => {
-    document.getElementById("my_modal_3").showModal();
+  // Handle form data change
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  // Close Modal
-  const closeModal = () => {
-    document.getElementById("my_modal_3").close();
-  };
+  // Handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // Handle Request Button Click
-  const handleRequest = () => {
-    // Prepare request data
-    console.log("request Btn clicked");
-    const requestData = {
+    const foodData = {
+      ...formData,
+      food_status: "requested",
       foodId: food._id,
-      userId: user.id, // Assuming you have user id available
-      additionalNotes: "", // Add any additional data you want to send
+      donator: {
+        name: formData.donator_name,
+        email: formData.donator_email,
+      },
     };
 
-    // Call sendRequest function passed from props
-    sendRequest(requestData);
-    console.log("Sending the request");
-  };
+    try {
+      // Post the request
+      await axios.post("http://localhost:5000/request", foodData);
 
+      // Update the food status to 'requested'
+      await axios.patch(`http://localhost:5000/food/${food._id}`, {
+        status: "requested",
+      });
+
+      toast.success("Successfully requested the food.");
+      navigate("/foodRequest");
+    } catch (error) {
+      console.error("Error occurred:", error);
+      toast.error("Failed to request the food. Please try again.");
+    }
+  };
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/food/${id}`);
+      // toast.success("Food has been successfully deleted.");
+      navigate("/foodRequest"); // Redirect to the available foods page
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to delete the food.");
+    }
+    //  onClick={() => handleDelete(food?._id)}
+  };
+  // console.log(food);
   return (
     <div>
       <Helmet>
@@ -61,101 +99,116 @@ const FoodDetails = () => {
           <img
             src={food?.food_image}
             className="max-w-sm rounded-lg shadow-2xl"
-            alt={food?.food_name}
           />
           <div>
             <h1 className="text-5xl font-bold">{food?.food_name}</h1>
-            <p className="pt-6">Quantity: {food?.food_quantity}</p>
-            <p className="pb-2">Expired: {food?.expired_datetime}</p>
-            <p>Donar Information:</p>
-            <p className="">{food?.name || food?.donator?.name}</p>
-            <p className="">{food?.pickup_location}</p>
-
-            <button className="btn btn-outline btn-warning" onClick={openModal}>
+            <p className="py-6">Quantity: {food?.food_quantity}</p>
+            <p className="py-6">Expired: {food?.expired_datetime}</p>
+            <button
+              className="btn btn-outline btn-warning"
+              onClick={() => document.getElementById("my_modal_3").showModal()}
+            >
               Request
             </button>
             <dialog id="my_modal_3" className="modal">
               <div className="modal-box">
-                <form method="dialog">
-                  {/* if there is a button in form, it will close the modal */}
+                <form onSubmit={handleSubmit} className="card-body">
                   <button
+                    onClick={() =>
+                      document.getElementById("my_modal_3").close()
+                    }
                     className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                    onClick={closeModal}
                   >
                     ✕
                   </button>
+                  <div>
+                    <label className="label">Food Name</label>
+                    <input
+                      name="food_name"
+                      value={formData.food_name}
+                      onChange={handleInputChange}
+                      disabled
+                      className="input input-bordered w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="label">Food Image</label>
+                    <input
+                      name="food_image"
+                      value={formData.food_image}
+                      onChange={handleInputChange}
+                      disabled
+                      className="input input-bordered w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="label">Food Quantity</label>
+                    <input
+                      name="food_quantity"
+                      value={formData.food_quantity}
+                      onChange={handleInputChange}
+                      disabled
+                      className="input input-bordered w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="label">Pickup Location</label>
+                    <input
+                      name="pickup_location"
+                      value={formData.pickup_location}
+                      onChange={handleInputChange}
+                      disabled
+                      className="input input-bordered w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="label">Expired Date</label>
+                    <input
+                      name="expired_date"
+                      value={formData.expired_date}
+                      onChange={handleInputChange}
+                      disabled
+                      className="input input-bordered w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="label">Additional Notes</label>
+                    <input
+                      name="additional_notes"
+                      value={formData.additional_notes}
+                      onChange={handleInputChange}
+                      className="input input-bordered w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="label">Donator Name</label>
+                    <input
+                      name="donator_name"
+                      value={formData.donator_name}
+                      onChange={handleInputChange}
+                      className="input input-bordered w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="label">Donator Email</label>
+                    <input
+                      name="donator_email"
+                      value={formData.donator_email}
+                      disabled
+                      className="input input-bordered w-full"
+                    />
+                  </div>
+
+                  <div className="text-center">
+                    <button
+                      onClick={() => handleDelete(food?._id)}
+                      type="submit"
+                      className="btn btn-primary"
+                    >
+                      Request Now
+                    </button>
+                  </div>
                 </form>
-                <input
-                  type="text"
-                  disabled
-                  defaultValue={food?.food_name}
-                  placeholder="Type here"
-                  className="input input-bordered input-warning w-full max-w-xs"
-                />
-                <input
-                  type="text"
-                  disabled
-                  defaultValue={food?.food_image}
-                  placeholder="Type here"
-                  className="input input-bordered input-warning w-full max-w-xs"
-                />
-                <input
-                  type="text"
-                  disabled
-                  defaultValue={food?._id}
-                  placeholder="Type here"
-                  className="input input-bordered input-warning w-full max-w-xs"
-                />
-                <input
-                  type="text"
-                  disabled
-                  defaultValue={food?.donator?.name}
-                  placeholder="Type here"
-                  className="input input-bordered input-warning w-full max-w-xs"
-                />
-                <input
-                  type="text"
-                  disabled
-                  defaultValue={food?.donator?.email}
-                  placeholder="Type here"
-                  className="input input-bordered input-warning w-full max-w-xs"
-                />
-                <input
-                  type="text"
-                  disabled
-                  defaultValue={user?.email}
-                  placeholder="Type here"
-                  className="input input-bordered input-warning w-full max-w-xs"
-                />
-                <input
-                  type="text"
-                  defaultValue={new Date()}
-                  disabled
-                  placeholder="Type here"
-                  className="input input-bordered input-warning w-full max-w-xs"
-                />
-                <input
-                  type="text"
-                  disabled
-                  defaultValue={food?.pickup_location}
-                  placeholder="Type here"
-                  className="input input-bordered input-warning w-full max-w-xs"
-                />
-                <input
-                  type="text"
-                  disabled
-                  defaultValue={food?.expired_datetime}
-                  placeholder="Type here"
-                  className="input input-bordered input-warning w-full max-w-xs"
-                />
-                <input
-                  type="text"
-                  value={additionalNotes}
-                  onChange={(e) => setAdditionalNotes(e.target.value)}
-                  placeholder="Additional Notes"
-                  className="input input-bordered input-warning w-full max-w-xs"
-                />
-                <button onClick={handleRequest}>Request</button>
               </div>
             </dialog>
           </div>

@@ -1,8 +1,9 @@
 import logo from "../../assets/Foodle.jpg";
+import "./Navbar.css";
 const Footer = () => {
   return (
     <div>
-      <footer className="footer footer-center p-10 bg-rose-200 text-primary-content">
+      <footer className="footer footer-center p-10 navBG text-primary-content">
         <aside>
           <img className="h-[80px] rounded-full" src={logo} alt="logo" />
 
