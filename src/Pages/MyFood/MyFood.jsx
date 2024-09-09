@@ -81,7 +81,7 @@ const MyFood = () => {
           <table className="table">
             {/* head */}
             <thead>
-              <tr>
+              <tr className="text-lg text-slate-300">
                 <th>FOOD</th>
                 <th>NAME</th>
                 <th>EMAIL</th>
