@@ -4,3 +4,11 @@
 .navText {
   color: rgb(52, 73, 94);
 }
+.ftr {
+  position: fixed;
+  /* left: 0; */
+  /* bottom: 0; */
+  /* width: 100%; */
+
+  /* text-align: center; */
+}

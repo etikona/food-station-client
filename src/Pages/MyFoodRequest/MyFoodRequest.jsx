@@ -27,7 +27,7 @@ const MyFoodRequest = () => {
         <div className="overflow-x-auto">
           <table className="table table-xs">
             <thead>
-              <tr>
+              <tr className="text-lg text-slate-300">
                 <th>Food Name </th>
                 <th>Email</th>
                 <th>Name</th>

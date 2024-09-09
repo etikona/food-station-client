@@ -10,7 +10,7 @@ const FoodRequestRow = ({ food }) => {
   } = food;
   console.log(food);
   return (
-    <tr>
+    <tr className="text-xl text-slate-300">
       <td>{food_name}</td>
       <td>{donator?.email}</td>
       <td>{donator?.name}</td>

@@ -61,7 +61,7 @@ const AvailableFoods = () => {
   };
 
   return (
-    <div className="my-28 mx-10">
+    <div className="my-28 mx-10 ">
       <Helmet>
         <title>Foodle | Available Food</title>
       </Helmet>
@@ -113,12 +113,8 @@ const AvailableFoods = () => {
           </div>
           <div className="text-right">
             <p className="text-sm text-gray-500">
-              Sorted by:{" "}
-              {sortBy
-                ? sortBy === "asc"
-                  ? "Ascending"
-                  : "Descending"
-                : "None"}
+              {/* Sorted by:{" "} */}
+              {sortBy ? (sortBy === "asc" ? "" : "") : ""}
             </p>
           </div>
         </div>
