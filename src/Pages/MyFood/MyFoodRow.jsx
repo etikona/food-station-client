@@ -31,7 +31,7 @@ const MyFoodRow = ({ food }) => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/food/${_id}`, {
+        fetch(`https://food-station-server-blush.vercel.app/food/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -73,7 +73,7 @@ const MyFoodRow = ({ food }) => {
 
       // Send patch request with the correct headers
       const response = await axios.patch(
-        `http://localhost:5000/food/${selectedFood._id}`,
+        `https://food-station-server-blush.vercel.app/food/${selectedFood._id}`,
         formattedData,
         {
           headers: {

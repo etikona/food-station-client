@@ -26,13 +26,14 @@ import { getAuth } from "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+//* import.meta.env.API_KEY
 const firebaseConfig = {
-  apiKey: "AIzaSyCm_SX5c9C4VzFKfhOYEbvZOkP7yD5t6gk",
-  authDomain: "foodstation-3fad3.firebaseapp.com",
-  projectId: "foodstation-3fad3",
-  storageBucket: "foodstation-3fad3.appspot.com",
-  messagingSenderId: "912969422690",
-  appId: "1:912969422690:web:4bba6eec531c6b6b3ffe3b",
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
 };
 
 // Initialize Firebase

@@ -9,7 +9,9 @@ const MyFood = () => {
   const [manage, setManage] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/food?email=${user.email}`)
+    fetch(
+      `https://food-station-server-blush.vercel.app/food?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => setManage(data));
   }, [user]);
@@ -35,7 +37,7 @@ const MyFood = () => {
       }
     });
     if (procceed) {
-      fetch(`http://localhost:5000/food/${id}`, {
+      fetch(`https://food-station-server-blush.vercel.app/food/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -50,7 +52,7 @@ const MyFood = () => {
     }
   };
   const handleUpdate = (id) => {
-    fetch(`http://localhost:5000/food/${id}`, {
+    fetch(`https://food-station-server-blush.vercel.app/food/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

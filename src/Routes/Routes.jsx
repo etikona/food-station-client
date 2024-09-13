@@ -34,7 +34,8 @@ const router = createBrowserRouter([
       {
         path: "/availableFood",
         element: <AvailableFoods />,
-        loader: () => fetch("http://localhost:5000/food"),
+        loader: () =>
+          fetch("https://food-station-server-blush.vercel.app/food"),
       },
       {
         path: "/food/:id",
@@ -44,7 +45,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/food/${params.id}`),
+          fetch(
+            `https://food-station-server-blush.vercel.app/food/${params.id}`
+          ),
       },
 
       {
@@ -63,9 +66,11 @@ const router = createBrowserRouter([
             <MyFoodRequest />
           </PrivateRoute>
         ),
-        // loader: () => fetch("http://localhost:5000/request"),
+        // loader: () => fetch("https://food-station-server-blush.vercel.app/request"),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/request?email=${params.email}`),
+          fetch(
+            `https://food-station-server-blush.vercel.app/request?email=${params.email}`
+          ),
       },
       {
         path: "/addFood",

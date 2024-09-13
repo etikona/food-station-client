@@ -51,7 +51,7 @@ const AuthProvider = ({ children }) => {
         });
         axios
           .post(
-            "http://localhost:5000/jwt",
+            "https://food-station-server-blush.vercel.app/jwt",
             { email, displayName, photoURL },
             {
               withCredentials: true,

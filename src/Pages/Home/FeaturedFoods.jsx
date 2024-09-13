@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const FeaturedFoods = () => {
   const [food, setFood] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/food")
+    fetch("https://food-station-server-blush.vercel.app/food")
       .then((res) => res.json())
       .then((data) => setFood(data));
   }, []);

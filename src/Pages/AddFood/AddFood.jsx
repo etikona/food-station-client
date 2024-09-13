@@ -30,13 +30,16 @@ const AddFood = () => {
         image: data.image,
       };
       console.log(formattedData);
-      const response = await fetch("http://localhost:5000/food", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(formattedData),
-      });
+      const response = await fetch(
+        "https://food-station-server-blush.vercel.app/food",
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(formattedData),
+        }
+      );
       toast.success("Food Added Successfully");
 
       if (response.ok) {
