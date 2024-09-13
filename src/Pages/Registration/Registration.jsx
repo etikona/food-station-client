@@ -44,7 +44,7 @@ const Registration = () => {
     // createUser(email, password).then((res) => {
     //   console.log(res);
     //   const user = res.user;
-    //   fetch("https://food-station-server-blush.vercel.app/users", {
+    //   fetch("https://food-station-server-gamma.vercel.app/users", {
     //         method: "POST",
     //          headers: {
     //          "content-type": "application/json",
@@ -60,7 +60,7 @@ const Registration = () => {
       .then((result) => {
         const user = { email, password, name, photo };
 
-        fetch("https://food-station-server-blush.vercel.app/users", {
+        fetch("https://food-station-server-gamma.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

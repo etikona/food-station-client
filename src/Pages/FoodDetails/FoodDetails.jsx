@@ -25,7 +25,7 @@ const FoodDetails = () => {
 
   useEffect(() => {
     // Fetch food details and set state
-    fetch(`https://food-station-server-blush.vercel.app/food/${id}`)
+    fetch(`https://food-station-server-gamma.vercel.app/food/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setFood(data);
@@ -64,13 +64,13 @@ const FoodDetails = () => {
     try {
       // Post the request
       await axios.post(
-        "https://food-station-server-blush.vercel.app/request",
+        "https://food-station-server-gamma.vercel.app/request",
         foodData
       );
 
       // Update the food status to 'requested'
       await axios.patch(
-        `https://food-station-server-blush.vercel.app/food/${food._id}`,
+        `https://food-station-server-gamma.vercel.app/food/${food._id}`,
         {
           status: "requested",
         }
@@ -86,7 +86,7 @@ const FoodDetails = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        `https://food-station-server-blush.vercel.app/food/${id}`
+        `https://food-station-server-gamma.vercel.app/food/${id}`
       );
       // toast.success("Food has been successfully deleted.");
       navigate("/foodRequest"); // Redirect to the available foods page

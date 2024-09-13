@@ -10,7 +10,7 @@ const MyFood = () => {
 
   useEffect(() => {
     fetch(
-      `https://food-station-server-blush.vercel.app/food?email=${user.email}`
+      `https://food-station-server-gamma.vercel.app/food?email=${user.email}`
     )
       .then((res) => res.json())
       .then((data) => setManage(data));
@@ -37,7 +37,7 @@ const MyFood = () => {
       }
     });
     if (procceed) {
-      fetch(`https://food-station-server-blush.vercel.app/food/${id}`, {
+      fetch(`https://food-station-server-gamma.vercel.app/food/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -52,7 +52,7 @@ const MyFood = () => {
     }
   };
   const handleUpdate = (id) => {
-    fetch(`https://food-station-server-blush.vercel.app/food/${id}`, {
+    fetch(`https://food-station-server-gamma.vercel.app/food/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
