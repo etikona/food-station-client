@@ -3,6 +3,7 @@ import { AuthContext } from "../../Providers/AuthProviders";
 import "./Navbar.css";
 import logo from "../../../public/assets/logo.png";
 import { useContext } from "react";
+
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   // console.log(user);
