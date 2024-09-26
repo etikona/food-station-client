@@ -34,8 +34,7 @@ const router = createBrowserRouter([
       {
         path: "/availableFood",
         element: <AvailableFoods />,
-        loader: () =>
-          fetch("https://food-station-server-gamma.vercel.app/food"),
+        loader: () => fetch("https:/food-station-server-gamma.vercel.app/food"),
       },
       {
         path: "/food/:id",
@@ -46,7 +45,7 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `https://food-station-server-gamma.vercel.app/food/${params.id}`
+            `https:/food-station-server-gamma.vercel.app/food/${params.id}`
           ),
       },
 
@@ -69,7 +68,7 @@ const router = createBrowserRouter([
         // loader: () => fetch("https://food-station-server-gamma.vercel.app/request"),
         loader: ({ params }) =>
           fetch(
-            `https://food-station-server-gamma.vercel.app/request?email=${params.email}`
+            `https:/food-station-server-gamma.vercel.app/request?email=${params.email}`
           ),
       },
       {
