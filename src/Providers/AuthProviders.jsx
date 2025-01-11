@@ -51,7 +51,7 @@ const AuthProvider = ({ children }) => {
         });
         axios
           .post(
-            "https://food-station-server-gamma.vercel.app/jwt",
+            "https://food-station-server.onrender.com/jwt",
             { email, displayName, photoURL },
             {
               withCredentials: true,

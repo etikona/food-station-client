@@ -64,13 +64,13 @@ const FoodDetails = () => {
     try {
       // Post the request
       await axios.post(
-        "https://food-station-server-gamma.vercel.app/request",
+        "https://food-station-server.onrender.com/api/request",
         foodData
       );
 
       // Update the food status to 'requested'
       await axios.patch(
-        `https://food-station-server-gamma.vercel.app/food/${food._id}`,
+        `https://food-station-server.onrender.com/api/food/${food._id}`,
         {
           status: "requested",
         }
@@ -86,10 +86,10 @@ const FoodDetails = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        `https://food-station-server-gamma.vercel.app/food/${id}`
+        `https://food-station-server.onrender.com/api/food/${id}`
       );
-      // toast.success("Food has been successfully deleted.");
-      navigate("/foodRequest"); // Redirect to the available foods page
+      toast.success("Food has been successfully deleted.");
+      navigate("/foodRequest");
     } catch (err) {
       console.error(err);
       toast.error("Failed to delete the food.");

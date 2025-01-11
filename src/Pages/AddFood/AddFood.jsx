@@ -31,7 +31,7 @@ const AddFood = () => {
       };
       console.log(formattedData);
       const response = await fetch(
-        "https://food-station-server-gamma.vercel.app/food",
+        "https://food-station-server.onrender.com/api/food",
         {
           method: "POST",
           headers: {

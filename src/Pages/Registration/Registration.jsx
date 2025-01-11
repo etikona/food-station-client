@@ -41,26 +41,12 @@ const Registration = () => {
     }
 
     // ! Create User
-    // createUser(email, password).then((res) => {
-    //   console.log(res);
-    //   const user = res.user;
-    //   fetch("https://food-station-server-gamma.vercel.app/users", {
-    //         method: "POST",
-    //          headers: {
-    //          "content-type": "application/json",
-    //           },
-    //          body: JSON.stringify(user),
-    //        })
-    //        .then((res) => res.json())
-    //         .then((data) => {
-    //           console.log(data, "user created successfully");
-    //            setSuccess("User created successfully!");
-    // })
+
     createUser(email, password)
       .then((result) => {
         const user = { email, password, name, photo };
 
-        fetch("https://food-station-server-gamma.vercel.app/users", {
+        fetch("https://food-station-server.onrender.com/api/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -71,13 +57,7 @@ const Registration = () => {
           .then((data) => {
             console.log(data, "user created successfully");
             setSuccess("User created successfully!");
-            // Swal.fire({
-            //   position: "center",
-            //   icon: "success",
-            //   title: "Registration Successful",
-            //   showConfirmButton: false,
-            //   timer: 3000,
-            // });
+
             navigate("/");
           });
       })
