@@ -1,7 +1,7 @@
 <div align="center">
   <br />
     <div>
-      <img src="https://ibb.co.com/y6fQm8X" alt="Project Banner">
+      <img src="https://i.postimg.cc/7YSVccN7/foodstation.png" alt="Project Banner">
       </div>
     
   <br />
